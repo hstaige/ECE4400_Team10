@@ -10,8 +10,8 @@ import time
 import sys
 import socket
 ClientMultiSocket = socket.socket()
-#host = '172.17.3.18'
-host = '192.168.1.123'
+host = '172.17.3.18'
+#host = '192.168.1.123'
 port = 2004
 print('Waiting for connection response')
 
