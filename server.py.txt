@@ -1,5 +1,5 @@
 #Multithread Socket Code goes to Digamber
-import time
+
 import socket
 import os
 from _thread import *
@@ -7,10 +7,9 @@ from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_OAEP
 
 from encryption import AES_Decrypt
-start_time = time.time()
+
 ServerSideSocket = socket.socket()
-#host = '172.17.2.12'
-host = '192.168.1.123'
+host = '127.0.0.1'
 port = 2004
 ThreadCount = 0
 
@@ -54,7 +53,7 @@ def multi_threaded_client(connection):
 
         if data.decode('utf-8') == 'exit': break
 
-        response = 'Server message: '  + data.decode('utf-8')
+        response = 'Server message: ' + data.decode('utf-8')
         connection.sendall(str.encode(response))
     connection.close()
 
