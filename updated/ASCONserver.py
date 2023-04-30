@@ -10,8 +10,8 @@ from encryption import AES_Decrypt
 from encryption import ASCON_Decrypt
 start_time = time.time()
 ServerSideSocket = socket.socket()
-#host = '172.17.3.18'
-host = '192.168.1.123'
+host = '172.17.3.18'
+#host = '192.168.1.123'
 port = 2004
 ThreadCount = 0
 
