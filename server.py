@@ -12,7 +12,8 @@ import time
 from encryption import Decode_Encryption_Method
 
 ServerSideSocket = socket.socket()
-host = '127.0.0.1'
+#host = '127.0.0.1'
+host = '172.17.2.16'
 port = 2004
 ThreadCount = 0
 num_clients = 2
@@ -23,6 +24,7 @@ except socket.error as e:
     print(str(e))
 print('Socket is listening..')
 ServerSideSocket.listen(5)
+
 
 def server_RSA_handshake(connection):
     print('Starting RSA handshake')
@@ -51,10 +53,12 @@ def send_experiment_details(connection, config):
 
     return Decode_Encryption_Method(config['enc_method'])
 
+
 def synchronize_clients(connection, barrier):
     barrier.wait()
     connection.send(str.encode('All synchronized!'))
     barrier.reset()
+
 
 def multi_threaded_client(connection, barrier, config):
 
@@ -87,15 +91,15 @@ def multi_threaded_client(connection, barrier, config):
     return delays, delta_time
 
 
-
 def config_generator():
     for enc_method in range(1,4):
         for packet_bytes in [8, 16, 32, 64]:
             for n_packets_bundled in [1, 2, 4, 8]:
                 for packets_per_sec in [16, 64, 128, 256]:
-                    for tot_packets in [100]:
+                    for tot_packets in [500]:
                         yield {'enc_method': enc_method, 'packet_bytes': packet_bytes, 'n_packets_bundled': n_packets_bundled,
                                 'packets_per_sec': packets_per_sec, 'tot_packets': tot_packets}
+
 
 def save_experiment_data(df, config, delays, delta_time, threadcount):
     experiment_results = config
@@ -106,10 +110,6 @@ def save_experiment_data(df, config, delays, delta_time, threadcount):
     df = df._append(experiment_results, ignore_index = True)
     df.to_csv(f'./Results/Client{threadcount}', mode = 'w', index = False)
     return df
-
-
-
-
 
 
 def manage_experiments(Client, barrier, threadcount):
