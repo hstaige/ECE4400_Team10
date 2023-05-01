@@ -34,7 +34,13 @@ def ASCON_Decrypt(ciphertext, key):
     data = ascon_decrypt(key = key, nonce = nonce, associateddata = b'', ciphertext = ciphertext)
     return data
 
-
+def Decode_Encryption_Method(enc_method):
+    if enc_method == 1:
+        return AES_Encrypt, AES_Decrypt
+    if enc_method == 2:
+        return DES3_Encrypt, DES3_Decrypt
+    if enc_method == 3:
+        return ASCON_Encrypt, ASCON_Decrypt
 
 
 
