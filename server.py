@@ -13,10 +13,10 @@ from encryption import Decode_Encryption_Method
 
 ServerSideSocket = socket.socket()
 #host = '127.0.0.1'
-host = '172.17.2.16'
+host = '172.17.4.17'
 port = 2004
 ThreadCount = 0
-num_clients = 2
+num_clients = 5
 
 try:
     ServerSideSocket.bind((host, port))
